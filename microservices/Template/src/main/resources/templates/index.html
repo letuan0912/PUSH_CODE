@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{default/layout}"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Breakfast Restaurant</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        font-family: Arial, sans-serif;
+      }
+      
+      section {
+        background-color: white;
+      }
+
+      /* Hero Section */
+      .hero-section {
+        display: flex;
+        padding: 0;
+        background: #fff;
+        min-height: 650px;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+      }
+      .hero-left {
+        flex: 1.2;
+        padding: 0;
+      }
+      .hero-left img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+        position: relative;
+      }
+      .breakfast-logo {
+        background: #FF6B35;
+        color: white;
+        padding: 12px 40px;
+        border-radius: 50px;
+        font-size: 24px;
+        margin-bottom: 30px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+        display: inline-block;
+      }
+      .hero-title {
+        font-size: 32px;
+        color: white;
+        margin: 25px auto;
+        font-weight: 300;
+        text-align: center;
+        line-height: 1.2;
+        padding: 15px 60px;
+        display: inline-block;
+        position: relative;
+        font-family: 'Arial Narrow', 'Helvetica Neue', sans-serif;
+        background: #e78a4e;
+        border-radius: 4px;
+        background-image: url('/default/images/3434177/orange-brush.png');
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        min-width: 300px;
+        max-width: 90%;
+        letter-spacing: 0.5px;
+        text-transform: none;
+        font-style: italic;
+      }
+      .hero-title::after {
+        display: none;
+      }
+      .hero-subtitle {
+        font-size: 30px;
+        color: #8AB73A;
+        margin: 20px 0 35px;
+        text-align: center;
+        line-height: 1.3;
+        font-weight: normal;
+      }
+      .book-now {
+        background: #FF6B35;
+        color: white;
+        padding: 15px 50px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-size: 22px;
+        text-transform: lowercase;
+        display: inline-block;
+        letter-spacing: 1px;
+        transition: background-color 0.3s;
+      }
+      .book-now:hover {
+        background: #e85a24;
+      }
+      .hero-decoration {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        opacity: 0.5;
+      }
+      .hero-decoration.top-right {
+        top: 80px;
+        right: 30px;
+      }
+      .hero-decoration.bottom-right {
+        bottom: 80px;
+        right: 30px;
+      }
+      .hero-icon {
+        position: absolute;
+        width: 45px;
+        height: 45px;
+        filter: invert(68%) sepia(54%) saturate(459%) hue-rotate(43deg) brightness(96%) contrast(84%);
+        opacity: 0.6;
+      }
+      .hero-icon.coffee-cup {
+        top: 130px;
+        right: 150px;
+        transform: rotate(-15deg);
+      }
+      .hero-icon.cup-saucer {
+        top: 120px;
+        right: 450px;
+        transform: rotate(0deg);
+        width: 50px;
+        height: 50px;
+      }
+      .hero-icon.leaf1 {
+        top: 70px;
+        right: 400px;
+        transform: rotate(-15deg);
+        width: 35px;
+        height: 35px;
+      }
+      .hero-icon.leaf2 {
+        top: 80px;
+        right: 490px;
+        transform: rotate(20deg);
+        width: 35px;
+        height: 35px;
+      }
+      .hero-icon.sun {
+        top: 200px;
+        right: 100px;
+        transform: rotate(10deg);
+        width: 60px;
+        height: 60px;
+      }
+      .hero-icon.drink {
+        bottom: 180px;
+        right: 150px;
+        transform: rotate(10deg);
+      }
+      .hero-icon.food {
+        bottom: 120px;
+        right: 250px;
+        transform: rotate(-10deg);
+      }
+
+      /* Timer Section */
+      .timer-section {
+        background: url('/default/images/3434177/Place Your Design Here (Double Click to Edit)1.png');
+        background-size: cover;
+        background-position: center;
+        padding: 100px 40px 150px;
+        text-align: center;
+        color: white;
+        position: relative;
+        background-color: #f9f9f9;
+      }
+      .timer-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: none;
+        z-index: 1;
+      }
+      .timer-title-container {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        background: #e78a4e;
+        padding: 10px 80px;
+        border-radius: 0;
+        margin-bottom: 70px;
+        max-width: 80%;
+        background-image: url('/default/images/3434177/orange-brush.png'), linear-gradient(to right, #e78a4e, #e78a4e);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+      }
+      .timer-title {
+        font-size: 24px;
+        margin: 0;
+        color: white;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+      .countdown {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        font-size: 60px;
+        font-weight: bold;
+        position: relative;
+        z-index: 2;
+        margin: 0 auto;
+        background: rgba(236, 128, 53, 0.8);
+        max-width: 700px;
+        padding: 30px 40px;
+        border-radius: 20px;
+      }
+      .time-unit {
+        text-align: center;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100px;
+      }
+      .time-unit-divider {
+        color: white;
+        align-self: center;
+        font-size: 40px;
+        padding-bottom: 25px;
+      }
+      .time-label {
+        font-size: 20px;
+        margin-top: 10px;
+        font-weight: normal;
+        text-transform: lowercase;
+      }
+      .timer-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(80%) sepia(30%) saturate(1000%) hue-rotate(340deg) brightness(90%) contrast(95%);
+        z-index: 2;
+      }
+      .timer-icon.left-top {
+        left: 60px;
+        top: 60px;
+      }
+      .timer-icon.right-top {
+        right: 60px;
+        top: 60px;
+      }
+      .timer-icon.left-bottom {
+        left: 60px;
+        bottom: 60px;
+      }
+      .timer-icon.right-bottom {
+        right: 60px;
+        bottom: 60px;
+      }
+
+      /* Discover Section */
+      .discover-section {
+        background: #8AB73A;
+        padding: 80px 40px;
+        text-align: center;
+        color: white;
+        min-height: 800px;
+        position: relative;
+      }
+      .discover-section img.icon {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+      }
+      .discover-section img.icon.left-top {
+        left: 40px;
+        top: 40px;
+      }
+      .discover-section img.icon.right-top {
+        right: 40px;
+        top: 40px;
+      }
+      .discover-section img.icon.left-bottom {
+        left: 40px;
+        bottom: 40px;
+      }
+      .discover-section img.icon.right-bottom {
+        right: 40px;
+        bottom: 40px;
+      }
+      .discover-section img.icon.center-bottom {
+        bottom: 180px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .discover-title {
+        display: inline-block;
+        background: white;
+        color: #8AB73A;
+        padding: 10px 40px;
+        border-radius: 30px;
+        font-size: 24px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+      .special-offers {
+        font-size: 28px;
+        margin-bottom: 60px;
+        text-transform: uppercase;
+        color: white;
+        font-weight: normal;
+      }
+      .food-cards {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 60px;
+      }
+      .food-card {
+        background: white;
+        border-radius: 10px;
+        padding: 0;
+        width: 240px;
+        text-align: left;
+      }
+      .food-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px 10px 0 0;
+      }
+      .food-card-content {
+        padding: 20px;
+        background: white;
+        border-radius: 0 0 10px 10px;
+      }
+      .food-title {
+        color: #333;
+        font-size: 16px;
+        margin: 0 0 10px 0;
+        font-weight: bold;
+      }
+      .food-description {
+        color: #666;
+        font-size: 14px;
+        margin: 10px 0;
+        line-height: 1.4;
+      }
+      .read-more {
+        color: #8AB73A;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: bold;
+        border-bottom: 2px solid #8AB73A;
+        display: inline-block;
+        padding-bottom: 3px;
+        margin-top: 5px;
+        background: none;
+        border-radius: 0;
+      }
+      .read-more:hover {
+        color: #71952F;
+      }
+
+      /* Cook Section */
+      .cook-section {
+        display: flex;
+        padding: 60px 40px;
+        background: white;
+        align-items: center;
+      }
+      .cook-left {
+        flex: 1;
+        padding-right: 60px;
+      }
+      .cook-title {
+        color: #8AB73A;
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+      .cook-description {
+        color: #FF6B35;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .cook-right {
+        flex: 1;
+      }
+      .cook-right img {
+        width: 100%;
+        max-width: 400px;
+        border-radius: 50%;
+      }
+
+      /* Features Section */
+      .features-section {
+        background: #8AB73A;
+        padding: 60px 40px;
+        color: white;
+        position: relative;
+      }
+      .features-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+      }
+      .features-icon.left {
+        left: 40px;
+        top: 80px;
+      }
+      .features-icon.right {
+        right: 40px;
+        top: 80px;
+      }
+      .features-grid {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: 0 auto;
+        gap: 30px;
+      }
+      .feature-item {
+        flex: 1;
+        text-align: center;
+        padding: 0 20px;
+        border: none;
+      }
+      .feature-item::before,
+      .feature-item::after,
+      .feature-item *::before,
+      .feature-item *::after {
+        display: none;
+        content: none;
+        border: none;
+      }
+      .feature-number {
+        font-size: 24px;
+        margin-bottom: 15px;
+        color: white;
+        display: block;
+        text-align: center;
+      }
+      .feature-title {
+        font-size: 20px;
+        margin-bottom: 15px;
+        margin-top: 0;
+        text-transform: lowercase;
+        font-weight: bold;
+        font-family: 'Arial', sans-serif;
+        color: white;
+        text-align: center;
+        border: none;
+        text-decoration: none;
+      }
+      .feature-title::before,
+      .feature-title::after {
+        display: none;
+        content: none;
+      }
+      .feature-text {
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 1;
+        color: white;
+        text-align: center;
+      }
+      .feature-dots {
+        text-align: center;
+        margin-top: 20px;
+        margin-bottom: 0;
+        font-size: 24px;
+      }
+
+      /* Discover Special Offers Section */
+      .discover-special {
+        background: #8AB73A;
+        padding: 60px 40px;
+        text-align: center;
+        color: white;
+        position: relative;
+      }
+      .discover-title {
+        display: inline-block;
+        background: white;
+        color: #8AB73A;
+        padding: 10px 40px;
+        border-radius: 30px;
+        font-size: 24px;
+        text-transform: uppercase;
+        font-weight: normal;
+        margin-bottom: 10px;
+      }
+      .discover-subtitle {
+        font-size: 28px;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+        font-weight: normal;
+      }
+      .discover-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+      }
+      .discover-icon.left {
+        left: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .discover-icon.right {
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      /* Menu Special Grid */
+      .menu-special-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      .menu-special-item {
+        display: flex;
+        text-align: left;
+        align-items: flex-start;
+      }
+      .menu-special-icon {
+        background: white;
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      .menu-special-icon img {
+        width: 40px;
+        height: 40px;
+      }
+      .menu-special-title {
+        font-size: 16px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        font-family: 'Arial', sans-serif;
+      }
+      .menu-special-desc {
+        font-size: 13px;
+        opacity: 0.9;
+        margin: 0;
+        color: white;
+        font-family: 'Arial', sans-serif;
+        line-height: 1.4;
+      }
+
+      /* Menu Section */
+      .menu-section {
+        background: #8AB73A;
+        padding: 40px;
+        padding-bottom: 60px;
+        color: white;
+      }
+      .menu-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .menu-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        width: 48%;
+        display: flex;
+        align-items: center;
+      }
+      .menu-icon-circle {
+        background: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+      }
+      .menu-icon-circle img {
+        width: 30px;
+        height: 30px;
+        filter: invert(68%) sepia(54%) saturate(459%) hue-rotate(43deg) brightness(96%) contrast(84%);
+      }
+      .menu-details {
+        flex-grow: 1;
+      }
+      .menu-title {
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-weight: normal;
+      }
+      .menu-desc {
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 5px;
+      }
+      .menu-price {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      /* New Offers Section */
+      .offers-section {
+        display: flex;
+        background: white;
+        padding: 40px;
+        padding-left: 0;
+        padding-bottom: 0;
+        position: relative;
+      }
+      .offers-image {
+        flex: 1;
+        padding-right: 40px;
+        margin-right: 40px;
+      }
+      .offers-image img {
+        width: 100%;
+        height: 450px;
+      }
+      .offers-content {
+        flex: 1;
+        padding-left: 40px;
+      }
+      .offers-title {
+        background: #FF6B35;
+        color: white;
+        display: inline-block;
+        padding: 10px 30px;
+        border-radius: 25px;
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+      .offer-item {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 20px;
+      }
+      .offer-name {
+        color: #FF6B35;
+        font-size: 20px;
+      }
+      .offer-description {
+        color: #8AB73A;
+        font-size: 14px;
+        margin-top: 5px;
+      }
+      .offer-price {
+        color: #8AB73A;
+        font-size: 20px;
+        font-weight: bold;
+        min-width: 45px;
+        text-align: right;
+        margin-left: 20px;
+      }
+      .offers-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(68%) sepia(54%) saturate(459%) hue-rotate(43deg) brightness(96%) contrast(84%);
+      }
+      .offers-icon.cup {
+        top: 40px;
+        right: 350px;
+      }
+      .offers-icon.donut {
+        top: 220px;
+        right: 350px;
+      }
+      .offers-icon.glass {
+        bottom: 100px;
+        right: 350px;
+      }
+
+      /* Simple Section */
+      .simple-section {
+        background: #8AB73A;
+        padding: 60px 40px;
+        padding-top: 0;
+        text-align: center;
+        color: white;
+        position: relative;
+      }
+      .simple-title {
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+      }
+      .simple-text {
+        font-size: 16px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin: 0 auto;
+        opacity: 0.9;
+      }
+      .simple-dots {
+        margin-top: 20px;
+        font-size: 24px;
+      }
+      .simple-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); /* Makes icons white */
+      }
+      .simple-icon.left {
+        left: 40px;
+        top: 60px;
+      }
+      .simple-icon.right {
+        right: 40px;
+        top: 60px;
+      }
+
+      /* Tradition Section */
+      .tradition-section {
+        padding: 0;
+        background: rgb(255, 255, 255);
+        position: relative;
+        overflow: hidden;
+        font-family: Arial, sans-serif;
+        width: calc(100% - 240px);
+        margin: 30px 120px;
+      }
+      .tradition-header {
+        background: #FF6B35;
+        color: white;
+        text-align: center;
+        padding: 30px 20px;
+        margin: 0;
+      }
+      .tradition-title {
+        font-size: 36px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+        font-weight: 400;
+      }
+      .tradition-subtitle {
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, auto);
+        width: 100%;
+        margin: 0;
+        gap: 0;
+      }
+      .menu-grid-item {
+        position: relative;
+      }
+      .menu-grid-item.image {
+        overflow: hidden;
+      }
+      .menu-grid-item.image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .menu-grid-item.content {
+        background: white;
+        padding: 30px 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .menu-grid-title {
+        color: #8AB73A;
+        font-size: 20px;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        font-weight: 400;
+      }
+      .menu-grid-description {
+        color: #FF6B35;
+        font-size: 13px;
+        margin-bottom: 10px;
+        line-height: 1.4;
+        max-width: 85%;
+      }
+      .menu-grid-price {
+        color: #8AB73A;
+        font-size: 18px;
+        font-weight: normal;
+      }
+      .tradition-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        z-index: 10;
+        filter: invert(68%) sepia(54%) saturate(459%) hue-rotate(43deg) brightness(96%) contrast(84%);
+      }
+      .tradition-icon.coffee-cup {
+        top: 30px;
+        left: 30px;
+      }
+      .tradition-icon.veg {
+        bottom: 100px;
+        left: 30px;
+      }
+      .tradition-icon.donut {
+        top: 180px;
+        right: 30px;
+      }
+      .tradition-icon.drink {
+        bottom: 60px;
+        right: 30px;
+      }
+
+      /* Booking Section */
+      .booking-section {
+        background: #8AB73A;
+        padding: 80px 60px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .booking-title {
+        color: #8AB73A;
+        font-size: 32px;
+        text-transform: uppercase;
+        margin-bottom: 60px;
+        display: inline-block;
+        background: white;
+        padding: 15px 50px;
+        border-radius: 30px;
+        font-weight: 400;
+      }
+      .booking-form {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        row-gap: 60px;
+      }
+      .form-group {
+        text-align: left;
+        padding: 0 30px;
+      }
+      .form-label {
+        display: block;
+        color: white;
+        margin-bottom: 15px;
+        font-size: 18px;
+      }
+      .form-input, .form-select {
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 4px;
+        background: white;
+        font-size: 16px;
+      }
+      .form-date-input {
+        position: relative;
+      }
+      .form-date-input::after {
+        content: "📅";
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .form-time-input {
+        position: relative;
+      }
+      .form-time-input::after {
+        content: "🕒";
+        position: absolute;
+        right: 10px;
+        top: 10px;
+      }
+      .submit-button {
+        grid-column: 1 / -1;
+        background: white;
+        color: #8AB73A;
+        border: none;
+        padding: 15px 70px;
+        border-radius: 4px;
+        font-size: 18px;
+        cursor: pointer;
+        width: fit-content;
+        margin: 50px auto 0;
+        text-transform: uppercase;
+      }
+      .booking-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+      }
+      .booking-icon.veg-left {
+        top: 60px;
+        left: 40px;
+      }
+      .booking-icon.veg-right {
+        top: 60px;
+        right: 40px;
+      }
+      .booking-icon.donut-left {
+        bottom: 60px;
+        left: 200px;
+      }
+      .booking-icon.pizza-right {
+        bottom: 60px;
+        right: 200px;
+      }
+
+      /* Testimonial Section */
+      .testimonial-section {
+        background: white;
+        padding: 60px 40px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .testimonial-quote-mark {
+        color: #FF6B35;
+        font-size: 60px;
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+      .testimonial-quote {
+        max-width: 800px;
+        margin: 0 auto;
+        color: #FF6B35;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .testimonial-author {
+        color: #8AB73A;
+        font-size: 16px;
+        text-transform: uppercase;
+      }
+      .testimonial-icon {
+        position: absolute;
+        width: 50px;
+        height: 80px;
+        filter: invert(68%) sepia(54%) saturate(459%) hue-rotate(43deg) brightness(96%) contrast(84%);
+      }
+      .testimonial-icon.coffee-left {
+        top: 60px;
+        left: 60px;
+      }
+      .testimonial-icon.drink-right {
+        top: 60px;
+        right: 60px;
+      }
+    </style>
+  </head>
+  <body>
+    <section layout:fragment="main-content">
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="hero-left">
+          <img src="/default/images/3434177/1.png" alt="Breakfast spread">
+        </div>
+        <div class="hero-right">
+          <div class="breakfast-logo">BREAKFAST</div>
+          <h1 class="hero-title">Fresh & Delicious</h1>
+          <h2 class="hero-subtitle">open every day<br>only mornings</h2>
+          <a href="#" class="book-now">book now</a>
+        </div>
+        <!-- Decorative icons -->
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Coffee cup" class="hero-icon coffee-cup">
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit).png" alt="Drink" class="hero-icon drink">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Food" class="hero-icon food">
+        <img src="/default/images/3434177/Vector Smart Object4 (Double Click to Edit).png" alt="Sun" class="hero-icon sun">
+        <!-- Additional decorative elements -->
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit).png" alt="Cup and saucer" class="hero-icon cup-saucer">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Leaf" class="hero-icon leaf1">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Leaf" class="hero-icon leaf2">
+      </div>
+
+      <!-- White Space Divider -->
+      <div style="background-color: white; height: 100px;"></div>
+
+      <!-- Timer Section -->
+      <div class="timer-section">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Food icon" class="timer-icon left-top">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Food icon" class="timer-icon right-top">
+        
+        <div class="timer-title-container">
+          <h2 class="timer-title">Special Offers Ending in</h2>
+        </div>
+        
+        <div class="countdown">
+          <div class="time-unit">
+            15
+            <div class="time-label">dd</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            30
+            <div class="time-label">hr</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            23
+            <div class="time-label">min</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            05
+            <div class="time-label">sec</div>
+          </div>
+        </div>
+        
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Food icon" class="timer-icon left-bottom">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Food icon" class="timer-icon right-bottom">
+      </div>
+
+      <!-- White Space Divider -->
+      <div style="background-color: white; height: 100px;"></div>
+
+      <!-- Discover Section -->
+      <div class="discover-section">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Cup icon" class="icon left-top">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Pastry icon" class="icon right-top">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Cup icon" class="icon left-bottom">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Pastry icon" class="icon right-bottom">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Cup icon" class="icon center">
+        <h2 class="discover-title">Discover</h2>
+        <div class="special-offers">SPECIAL OFFERS</div>
+        <div class="food-cards">
+          <div class="food-card">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)8.png" alt="Egg dish">
+            <div class="food-card-content">
+              <h3 class="food-title">Egg / 10th Jan, 2020</h3>
+              <p class="food-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed</p>
+              <a href="#" class="read-more">READ MORE</a>
+            </div>
+          </div>
+          <div class="food-card">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)5.png" alt="Fresh fruits">
+            <div class="food-card-content">
+              <h3 class="food-title">Fruits / 10th Jan, 2020</h3>
+              <p class="food-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed</p>
+              <a href="#" class="read-more">READ MORE</a>
+            </div>
+          </div>
+          <div class="food-card">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)4.png" alt="Fresh juices">
+            <div class="food-card-content">
+              <h3 class="food-title">Juices / 10th Jan, 2020</h3>
+              <p class="food-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed</p>
+              <a href="#" class="read-more">READ MORE</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cook Section -->
+      <div class="cook-section">
+        <div class="cook-left">
+          <h2 class="cook-title">What do we actually cook?</h2>
+          <p class="cook-description">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ei-usmod tempor incididunt ut labore et dolorem magna aliqua. Ut enim ad minim veniam, quis nostrud
+          </p>
+        </div>
+        <div class="cook-right">
+          <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)5.png" alt="Coffee cup">
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features-section">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="features-icon left">
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-number">•</div>
+            <h2 class="feature-title">new tastes</h2>
+            <p class="feature-text">Lorem ipsum dolor sit amet, consecte sectetur adipisicing elit, tation omne ullamco laboris nisi ut aliquore.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-number">••</div>
+            <h2 class="feature-title">new dishes cooking</h2>
+            <p class="feature-text">Lorem ipsum dolor sit amet, consecte sectetur adipisicing elit, tation omne ullamco laboris nisi ut aliquore.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-number">•••</div>
+            <h2 class="feature-title">new restaurant</h2>
+            <p class="feature-text">Lorem ipsum dolor sit amet, consecte sectetur adipisicing elit, tation omne ullamco laboris nisi ut aliquore.</p>
+          </div>
+        </div>
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="features-icon right">
+      </div>
+
+      <!-- White Space Divider -->
+      <div style="background-color: white; height: 70px;"></div>
+
+      <!-- Timer Section -->
+      <div class="timer-section">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Food icon" class="timer-icon left-top">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Food icon" class="timer-icon right-top">
+        
+        <div class="timer-title-container">
+          <h2 class="timer-title">Special Offers Ending in</h2>
+        </div>
+        
+        <div class="countdown">
+          <div class="time-unit">
+            15
+            <div class="time-label">dd</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            30
+            <div class="time-label">hr</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            23
+            <div class="time-label">min</div>
+          </div>
+          <div class="time-unit-divider">|</div>
+          <div class="time-unit">
+            05
+            <div class="time-label">sec</div>
+          </div>
+        </div>
+        
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Food icon" class="timer-icon left-bottom">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Food icon" class="timer-icon right-bottom">
+      </div>
+
+      <!-- White Space Divider -->
+      <div style="background-color: white; height: 100px;"></div>
+
+      <!-- Discover Special Offers Section -->
+      <div class="discover-special">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="discover-icon left">
+        <h2 class="discover-title">Discover</h2>
+        <p class="discover-subtitle">SPECIAL OFFERS</p>
+        
+        <div class="menu-special-grid">
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object (Double Cl ick to Edit) 2.png" alt="Breakfast Tacos">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Breakfast Tacos</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $14.95</p>
+            </div>
+          </div>
+          
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit) 5.png" alt="Açaí Breakfast Bowl">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Açaí Breakfast Bowl</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $14.95</p>
+            </div>
+          </div>
+          
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object (Double Cl ick to Edit) 2.png" alt="Coffee Cake Muffins">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Coffee Cake Muffins</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $18.95</p>
+            </div>
+          </div>
+          
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit) 5.png" alt="Huevos Rancheros">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Huevos Rancheros</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $14.95</p>
+            </div>
+          </div>
+          
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit) 2.png" alt="Cinnamon Buns">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Cinnamon Buns</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $7.95</p>
+            </div>
+          </div>
+          
+          <div class="menu-special-item">
+            <div class="menu-special-icon">
+              <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit) 2.png" alt="Breakfast Crescent Ring">
+            </div>
+            <div>
+              <h3 class="menu-special-title">Breakfast Crescent Ring</h3>
+              <p class="menu-special-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do ocuis $14.95</p>
+            </div>
+          </div>
+        </div>
+        
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="discover-icon right">
+      </div>
+
+      <!-- New Offers Section -->
+      <div class="offers-section">
+        <div class="offers-image">
+          <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit) 2.png" alt="Breakfast spread">
+        </div>
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit) 5.png" alt="Cup icon" class="offers-icon cup">
+        <img src="/default/images/3434177/Vector Smart Object (Double Cl ick to Edit) copy.png" alt="Donut icon" class="offers-icon donut">
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit) 2.png" alt="Glass icon" class="offers-icon glass">
+        <div class="offers-content">
+          <h2 class="offers-title">New Offers</h2>
+          <div class="offer-item">
+            <div>
+              <h3 class="offer-name">Royal Pancakes</h3>
+              <p class="offer-description">(Lorem ipsum dolor sit amet)</p>
+            </div>
+            <span class="offer-price">$20</span>
+          </div>
+          <div class="offer-item">
+            <div>
+              <h3 class="offer-name">Veggie Delight</h3>
+              <p class="offer-description">(Lorem ipsum dolor sit amet)</p>
+            </div>
+            <span class="offer-price">$10</span>
+          </div>
+          <div class="offer-item">
+            <div>
+              <h3 class="offer-name">Pepper & Eggs</h3>
+              <p class="offer-description">(Lorem ipsum dolor sit amet)</p>
+            </div>
+            <span class="offer-price">$10</span>
+          </div>
+          <div class="offer-item">
+            <div>
+              <h3 class="offer-name">Special Ice Cream</h3>
+              <p class="offer-description">(Lorem ipsum dolor sit amet)</p>
+            </div>
+            <span class="offer-price">$15</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simple Section -->
+      <div class="simple-section">
+        <img src="/default/images/3434177/Vector Smart Object (Double Cl ick to Edit) 2.png" alt="Coffee icon" class="simple-icon left">
+        <h2 class="simple-title">We like to keep things simple</h2>
+        <p class="simple-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis</p>
+        <div class="simple-dots">• • •</div>
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit) 5.png" alt="Drink icon" class="simple-icon right">
+      </div>
+
+      <!-- Tradition Section -->
+      <div class="tradition-section">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit) 2.png" alt="Coffee cup icon" class="tradition-icon coffee-cup">
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="tradition-icon veg">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="tradition-icon donut">
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit).png" alt="Drink icon" class="tradition-icon drink">
+        
+        <div class="tradition-header">
+          <h2 class="tradition-title">We bring tradition</h2>
+          <p class="tradition-subtitle">TO YOUR PLATE</p>
+        </div>
+        
+        <div class="menu-grid">
+          <!-- Row 1 -->
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)1.png" alt="Fruits and Juice">
+          </div>
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Fruits and Juice</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$14.95</span>
+          </div>
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)2.png" alt="Scrambled Eggs">
+          </div>
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Scrambled Eggs</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$12.95</span>
+          </div>
+          
+          <!-- Row 2 -->
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Avocado Toasts</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$11.95</span>
+          </div>
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)31.png" alt="Avocado Toasts">
+          </div>
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Coffee with Cookies</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$16.95</span>
+          </div>
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)4.png" alt="Coffee with Cookies">
+          </div>
+          
+          <!-- Row 3 -->
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)5.png" alt="Omelette">
+          </div>
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Omelette + Tea + Cake</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$8.95</span>
+          </div>
+          <div class="menu-grid-item image">
+            <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)8.png" alt="Strawberry Granola">
+          </div>
+          <div class="menu-grid-item content">
+            <h3 class="menu-grid-title">Strawberry Granola</h3>
+            <p class="menu-grid-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do</p>
+            <span class="menu-grid-price">$14.95</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Section -->  
+      <div class="booking-section">
+        <h2 class="booking-title">Book here</h2>
+        <form class="booking-form">
+          <div class="form-group">
+            <label class="form-label">How many people?</label>
+            <select class="form-input">
+              <option>2 people</option>
+              <option>4 people</option>
+              <option>6 people</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">When is your date?</label>
+            <div class="form-date-input">
+              <input type="text" class="form-input" value="17-02-2020">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time</label>
+            <div class="form-time-input">
+              <input type="text" class="form-input" value="10:00am">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <select class="form-input">
+              <option>Full name</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="text" class="form-input" placeholder="Your email address">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-input" placeholder="Your phone">
+          </div>
+          <button type="submit" class="submit-button">SUBMIT</button>
+        </form>
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="booking-icon veg-left">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Vegetable icon" class="booking-icon veg-right">
+        <img src="/default/images/3434177/Vector Smart Object4 (Double Click to Edit).png" alt="Donut icon" class="booking-icon donut-left">
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit).png" alt="Pizza icon" class="booking-icon pizza-right">
+      </div>
+
+      <!-- Testimonial Section -->
+      <div class="testimonial-section">
+        <div class="testimonial-quote-mark">"</div>
+        <div class="testimonial-quote">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do ei-usmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+        </div>
+        <div class="testimonial-author">JOHN MAXWELL</div>
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit) 5.png" alt="Coffee cup icon" class="testimonial-icon coffee-left">
+        <img src="/default/images/3434177/Vector Smart Object2 (Double Click to Edit) 2.png" alt="Drink icon" class="testimonial-icon drink-right">
+      </div>
+    </section>
+  </body>
+</html>
+
+

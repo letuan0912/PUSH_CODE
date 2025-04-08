@@ -1,0 +1,42 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="favicon.png">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="bootstrap, bootstrap4" />
+
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/default/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link th:href="@{/default/css/tiny-slider.css}" rel="stylesheet">
+    <link th:href="@{/default/css/style.css}" rel="stylesheet">
+    <link th:href="@{/default/css/investment.css}" rel="stylesheet">
+
+    <title>Investment Platform - Make Smarter Decisions</title>
+</head>
+
+<body>
+<section th:replace="default/header.html"></section>
+<section layout:fragment="main-content"></section>
+<section th:replace="default/footer.html"></section>
+
+<script th:src="@{/default/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/default/js/tiny-slider.js}"></script>
+<script th:src="@{/default/js/custom.js}"></script>
+<script th:src="@{/default/js/investment.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{admin/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Khách Hàng Mới</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!--    <link rel="stylesheet" th:href="@{/customer/main.css}">-->
+</head>
+<body>
+<section layout:fragment="main-content">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-success text-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">Thêm Khách Hàng Mới</h4>
+                            <a th:href="@{/admin/customers/list-customer}" class="btn btn-sm btn-light">
+                                <i class="fas fa-arrow-left"></i> Quay lại danh sách
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form th:action="@{/admin/customers/save}" th:object="${customer}" method="post" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="nameOfCompany" class="form-label">Tên Công Ty</label>
+                                <input type="text" class="form-control" id="nameOfCompany"
+                                       th:field="*{nameOfCompany}" placeholder="Nhập tên công ty"
+                                       th:classappend="${#fields.hasErrors('nameOfCompany')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('nameOfCompany')}" th:errors="*{nameOfCompany}"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Địa Chỉ Đầy Đủ</label>
+                                <input type="text" class="form-control" id="address"
+                                       th:field="*{address}" placeholder="Nhập địa chỉ"
+                                       th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''">
+                                <div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="city" class="form-label">Thành Phố</label>
+                                    <input type="text" class="form-control" id="city"
+                                           th:field="*{city}" placeholder="Nhập thành phố"
+                                           th:classappend="${#fields.hasErrors('city')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="region" class="form-label">Khu Vực</label>
+                                    <input type="text" class="form-control" id="region"
+                                           th:field="*{region}" placeholder="Nhập khu vực"
+                                           th:classappend="${#fields.hasErrors('region')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('region')}" th:errors="*{region}"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="zipCode" class="form-label">Mã Bưu Điện</label>
+                                    <input type="number" class="form-control" id="zipCode"
+                                           th:field="*{zipCode}" placeholder="Nhập mã bưu điện"
+                                           th:classappend="${#fields.hasErrors('zipCode')} ? 'is-invalid' : ''">
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('zipCode')}" th:errors="*{zipCode}"></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="country" class="form-label">Quốc Gia</label>
+                                    <select class="form-select" id="country"
+                                            th:field="*{country}"
+                                            th:classappend="${#fields.hasErrors('country')} ? 'is-invalid' : ''">
+                                        <option value="">Chọn quốc gia</option>
+                                        <option th:value="HaNoi">Hà Nội</option>
+                                        <option th:value="HCM">Hồ Chí Minh</option>
+                                        <option th:value="CanTho">Cần Thơ</option>
+                                        <option th:value="DaNang">Đà Nẵng</option>
+                                        <option th:value="HaiPhong">Hải Phòng</option>
+                                    </select>
+                                    <div class="invalid-feedback" th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-2 mt-4">
+                                <button type="reset" class="btn btn-secondary">
+                                    <i class="fas fa-redo"></i> Làm mới
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-plus-circle"></i> Thêm mới
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Form validation script
+    (function () {
+        'use strict'
+        // Fetch all forms we want to apply validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+</body>
+</html>

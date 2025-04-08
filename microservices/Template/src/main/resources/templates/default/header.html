@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>
+    <style>
+        .investment-header {
+            background-color: #fff;
+            padding: 16px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+        }
+        .navigation {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+        }
+        .nav-link {
+            color: #FF6B35;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            letter-spacing: 1px;
+        }
+        .nav-link:hover {
+            color: #ff8c35;
+        }
+    </style>
+</head>
+<body>
+<!-- Header Section -->
+<header th:fragment="header" class="investment-header">
+    <div class="container">
+        <nav class="navigation">
+            <a class="nav-link" th:href="@{/}">Home</a>
+            <a class="nav-link" th:href="@{/menu}">Menu</a>
+            <a class="nav-link" th:href="@{/events}">Events</a>
+            <a class="nav-link" th:href="@{/contact}">Contact</a>
+            <a class="nav-link" th:href="@{/products}">Products</a>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

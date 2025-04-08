@@ -1,0 +1,276 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Admin Dashboard - Resto Restaurant</title>-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">-->
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!--    <style>-->
+<!--        .sidebar {-->
+<!--            min-height: 100vh;-->
+<!--            background-color: #343a40;-->
+<!--            padding-top: 20px;-->
+<!--        }-->
+<!--        .sidebar .nav-link {-->
+<!--            color: rgba(255, 255, 255, 0.75);-->
+<!--            padding: 12px 20px;-->
+<!--            margin-bottom: 5px;-->
+<!--            border-radius: 4px;-->
+<!--        }-->
+<!--        .sidebar .nav-link:hover {-->
+<!--            background-color: rgba(255, 255, 255, 0.1);-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .sidebar .nav-link.active {-->
+<!--            background-color: #0d6efd;-->
+<!--            color: white;-->
+<!--        }-->
+<!--        .sidebar .nav-link i {-->
+<!--            margin-right: 10px;-->
+<!--            width: 20px;-->
+<!--            text-align: center;-->
+<!--        }-->
+<!--        .admin-header {-->
+<!--            background-color: #f8f9fa;-->
+<!--            padding: 15px 20px;-->
+<!--            border-bottom: 1px solid #dee2e6;-->
+<!--        }-->
+<!--        .content-area {-->
+<!--            padding: 20px;-->
+<!--        }-->
+<!--        .table-responsive {-->
+<!--            overflow-x: auto;-->
+<!--        }-->
+<!--        .table {-->
+<!--            min-width: 800px;-->
+<!--        }-->
+<!--        .product-thumbnail {-->
+<!--            width: 50px;-->
+<!--            height: 50px;-->
+<!--            object-fit: cover;-->
+<!--            border-radius: 4px;-->
+<!--        }-->
+<!--        .modal-confirm .modal-content {-->
+<!--            padding: 20px;-->
+<!--            border-radius: 5px;-->
+<!--            border: none;-->
+<!--        }-->
+<!--        .modal-confirm .modal-footer {-->
+<!--            border: none;-->
+<!--            text-align: center;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container-fluid">-->
+<!--    <div class="row">-->
+<!--        &lt;!&ndash; Sidebar &ndash;&gt;-->
+<!--        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse">-->
+<!--            <div class="position-sticky">-->
+<!--                <div class="text-center mb-4">-->
+<!--                    <h4 class="text-white">Admin Panel</h4>-->
+<!--                    <p class="text-light">Xin chào, <span sec:authentication="principal.username" class="fw-bold"></span></p>-->
+<!--                </div>-->
+<!--                <ul class="nav flex-column">-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link active" href="#productManagement">-->
+<!--                            <i class="fas fa-box"></i> Quản lý Sản phẩm-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#categories">-->
+<!--                            <i class="fas fa-tags"></i> Danh mục-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#orders">-->
+<!--                            <i class="fas fa-shopping-cart"></i> Đơn hàng-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#users">-->
+<!--                            <i class="fas fa-users"></i> Người dùng-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="#settings">-->
+<!--                            <i class="fas fa-cog"></i> Cài đặt-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mt-3">-->
+<!--                        <form th:action="@{/logout}" method="post">-->
+<!--                            <button class="btn btn-danger w-100">-->
+<!--                                <i class="fas fa-sign-out-alt"></i> Đăng xuất-->
+<!--                            </button>-->
+<!--                        </form>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item mt-2">-->
+<!--                        <a th:href="@{/}" class="btn btn-outline-light w-100">-->
+<!--                            <i class="fas fa-home"></i> Trang chủ-->
+<!--                        </a>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </nav>-->
+
+<!--        &lt;!&ndash; Main Content &ndash;&gt;-->
+<!--        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">-->
+<!--            &lt;!&ndash; Header &ndash;&gt;-->
+<!--            <div class="admin-header d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">-->
+<!--                <h1>Quản lý Sản phẩm</h1>-->
+<!--                <div>-->
+<!--                    <span class="badge bg-primary me-2">Quyền: <span sec:authentication="principal.authorities"></span></span>-->
+<!--                    <a th:href="@{/products/form-insert}" class="btn btn-primary">-->
+<!--                        <i class="fas fa-plus"></i> Thêm sản phẩm-->
+<!--                    </a>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Product Management Section &ndash;&gt;-->
+<!--            <section id="productManagement" class="content-area">-->
+<!--                <div class="card">-->
+<!--                    <div class="card-header bg-white">-->
+<!--                        <div class="row align-items-center">-->
+<!--                            <div class="col-md-8">-->
+<!--                                <h5 class="mb-0">Danh sách sản phẩm</h5>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-4">-->
+<!--                                <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm...">-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-body p-0">-->
+<!--                        <div class="table-responsive">-->
+<!--                            <table class="table table-hover mb-0">-->
+<!--                                <thead class="table-light">-->
+<!--                                <tr>-->
+<!--                                    <th scope="col" style="width: 60px;">Ảnh</th>-->
+<!--                                    <th scope="col">Mã SP</th>-->
+<!--                                    <th scope="col">Tên sản phẩm</th>-->
+<!--                                    <th scope="col">Giá</th>-->
+<!--                                    <th scope="col">Tồn kho</th>-->
+<!--                                    <th scope="col">Trạng thái</th>-->
+<!--                                    <th scope="col" style="width: 150px;">Thao tác</th>-->
+<!--                                </tr>-->
+<!--                                </thead>-->
+<!--                                <tbody>-->
+<!--                                <tr th:each="product : ${products}">-->
+<!--                                    <td>-->
+<!--                                        <img th:if="${product.imageUrl}" th:src="@{'/default/images/products/' + ${product.imageUrl}}" class="product-thumbnail" alt="Thumbnail">-->
+<!--                                        <div th:unless="${product.imageUrl}" class="bg-light d-flex justify-content-center align-items-center product-thumbnail">-->
+<!--                                            <i class="fas fa-image text-muted"></i>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                    <td th:text="${product.sku}"></td>-->
+<!--                                    <td th:text="${product.name}"></td>-->
+<!--                                    <td th:text="${'$' + product.price}"></td>-->
+<!--                                    <td>-->
+<!--                                        <span th:text="${product.stockQuantity}"></span>-->
+<!--                                        <span th:if="${product.stockQuantity < 10}" class="badge bg-warning text-dark ms-1">Sắp hết</span>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <span th:if="${product.isActive}" class="badge bg-success">Hiển thị</span>-->
+<!--                                        <span th:unless="${product.isActive}" class="badge bg-secondary">Ẩn</span>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <div class="btn-group">-->
+<!--                                            <a th:href="@{/products/form-update(id=${product.id})}" class="btn btn-sm btn-outline-primary" title="Chỉnh sửa">-->
+<!--                                                <i class="fas fa-edit"></i>-->
+<!--                                            </a>-->
+<!--                                            <a th:href="@{/products/detail(id=${product.id})}" class="btn btn-sm btn-outline-info" title="Xem chi tiết">-->
+<!--                                                <i class="fas fa-eye"></i>-->
+<!--                                            </a>-->
+<!--                                            <button type="button" class="btn btn-sm btn-outline-danger" title="Xóa sản phẩm"-->
+<!--                                                    data-bs-toggle="modal" th:data-bs-target="'#deleteModal' + ${product.id}">-->
+<!--                                                <i class="fas fa-trash"></i>-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+
+<!--                                        &lt;!&ndash; Delete Confirmation Modal &ndash;&gt;-->
+<!--                                        <div class="modal fade modal-confirm" th:id="'deleteModal' + ${product.id}" tabindex="-1" aria-hidden="true">-->
+<!--                                            <div class="modal-dialog">-->
+<!--                                                <div class="modal-content">-->
+<!--                                                    <div class="modal-header bg-danger text-white">-->
+<!--                                                        <h5 class="modal-title">Xác nhận xóa</h5>-->
+<!--                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-body">-->
+<!--                                                        <p class="mb-0">Bạn có chắc chắn muốn xóa sản phẩm <strong th:text="${product.name}"></strong>?</p>-->
+<!--                                                        <p class="text-muted small">Hành động này không thể khôi phục.</p>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="modal-footer">-->
+<!--                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>-->
+<!--                                                        <a th:href="@{/products/delete(id=${product.id})}" class="btn btn-danger">Xóa</a>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr th:if="${#lists.isEmpty(products)}">-->
+<!--                                    <td colspan="7" class="text-center py-4">-->
+<!--                                        <div class="py-5">-->
+<!--                                            <i class="fas fa-box-open fa-3x text-muted mb-3"></i>-->
+<!--                                            <p>Không có sản phẩm nào.</p>-->
+<!--                                            <a th:href="@{/products/form-insert}" class="btn btn-primary">Thêm sản phẩm đầu tiên</a>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                </tbody>-->
+<!--                            </table>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="card-footer bg-white" th:if="${not #lists.isEmpty(products)}">-->
+<!--                        <nav aria-label="Page navigation">-->
+<!--                            <ul class="pagination justify-content-center mb-0">-->
+<!--                                <li class="page-item disabled">-->
+<!--                                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trước</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--                                <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">Sau</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </nav>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+<!--        </main>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Bootstrap JS Bundle with Popper &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Admin Page</h1>
+            <p>User <span sec:authentication="principal.username"></span></p>
+            <p>Role: <span sec:authentication="principal.authorities"></span></p>
+            <p>
+            <form th:action="@{/logout}" method="post">
+                <button class="btn btn-danger">Logout</button>
+                <a th:href="@{/}" class="btn btn-light">Back home</a>
+            </form>
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

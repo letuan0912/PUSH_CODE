@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{default/layout}"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Menu - Breakfast Restaurant</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+      }
+
+      section {
+        background-color: white;
+      }
+
+      .menu-section {
+        padding: 80px 40px;
+        background-color: #8AB73A;
+        position: relative;
+        overflow: hidden;
+        color: white;
+        text-align: center;
+      }
+
+      .section-title-container {
+        position: relative;
+        z-index: 2;
+        display: inline-block;
+        background: white;
+        padding: 10px 40px;
+        border-radius: 30px;
+        margin-bottom: 20px;
+      }
+      
+      .section-title {
+        text-align: center;
+        color: #8AB73A;
+        font-size: 32px;
+        font-weight: normal;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      
+      .section-subtitle {
+        font-size: 28px;
+        margin-bottom: 60px;
+        text-transform: uppercase;
+        color: white;
+        font-weight: normal;
+      }
+
+      .menu-icon-decorative {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+      }
+      
+      .menu-icon-decorative.left {
+        left: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      
+      .menu-icon-decorative.right {
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .menu-categories {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .menu-category {
+        background: #FF6B35;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .menu-category:hover {
+        background: #e85a24;
+      }
+
+      .menu-category.active {
+        background: white;
+        color: #FF6B35;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .menu-item {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .menu-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .menu-item-image {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 20px;
+        flex-shrink: 0;
+      }
+
+      .menu-item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .menu-item-content {
+        flex: 1;
+      }
+
+      .menu-item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .menu-item-title {
+        color: #8AB73A;
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+        text-transform: uppercase;
+      }
+
+      .menu-item-price {
+        color: #FF6B35;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .menu-item-description {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+      }
+
+      .menu-special-tag {
+        background: #FF6B35;
+        color: white;
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 4px;
+        margin-left: 10px;
+        text-transform: uppercase;
+      }
+
+      @media (max-width: 992px) {
+        .menu-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .menu-item {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .menu-item-image {
+          margin-right: 0;
+          margin-bottom: 15px;
+        }
+        
+        .menu-item-header {
+          flex-direction: column;
+        }
+        
+        .menu-item-price {
+          margin-top: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section layout:fragment="main-content">
+      <div class="menu-section">
+        <div class="section-title-container">
+          <h2 class="section-title">Our Menu</h2>
+        </div>
+        <p class="section-subtitle">FRESH & DELICIOUS</p>
+        
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="menu-icon-decorative left">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="menu-icon-decorative right">
+        
+        <div class="menu-categories">
+          <div class="menu-category active">All</div>
+          <div class="menu-category">Breakfast</div>
+          <div class="menu-category">Pancakes</div>
+          <div class="menu-category">Eggs</div>
+          <div class="menu-category">Pastries</div>
+          <div class="menu-category">Beverages</div>
+        </div>
+        
+        <div class="menu-grid">
+          <!-- Menu Item 1 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)8.png" alt="Eggs Benedict">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Eggs Benedict <span class="menu-special-tag">Special</span></h3>
+                <div class="menu-item-price">$12.95</div>
+              </div>
+              <p class="menu-item-description">Poached eggs on English muffin with hollandaise sauce and your choice of Canadian bacon or smoked salmon.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 2 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)1.png" alt="Buttermilk Pancakes">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Buttermilk Pancakes</h3>
+                <div class="menu-item-price">$9.95</div>
+              </div>
+              <p class="menu-item-description">Fluffy pancakes served with maple syrup, fresh berries, and whipped butter.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 3 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)3.png" alt="Avocado Toast">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Avocado Toast</h3>
+                <div class="menu-item-price">$10.95</div>
+              </div>
+              <p class="menu-item-description">Toasted artisan bread topped with smashed avocado, cherry tomatoes, microgreens, and a poached egg.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 4 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)2.png" alt="French Toast">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">French Toast</h3>
+                <div class="menu-item-price">$11.95</div>
+              </div>
+              <p class="menu-item-description">Thick-cut brioche bread dipped in cinnamon-vanilla batter, grilled to perfection, topped with powdered sugar.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 5 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)4.png" alt="Breakfast Burrito">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Breakfast Burrito <span class="menu-special-tag">Popular</span></h3>
+                <div class="menu-item-price">$13.95</div>
+              </div>
+              <p class="menu-item-description">Flour tortilla filled with scrambled eggs, chorizo, potatoes, black beans, cheddar cheese, and pico de gallo.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 6 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)5.png" alt="Fresh Fruit Bowl">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Fresh Fruit Bowl</h3>
+                <div class="menu-item-price">$8.95</div>
+              </div>
+              <p class="menu-item-description">Seasonal fresh fruits served with honey-yogurt dip and granola on the side.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 7 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)8.png" alt="Omelette">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Create Your Omelette</h3>
+                <div class="menu-item-price">$14.95</div>
+              </div>
+              <p class="menu-item-description">Three-egg omelette with your choice of fillings: cheese, vegetables, meats, and herbs. Served with toast and breakfast potatoes.</p>
+            </div>
+          </div>
+          
+          <!-- Menu Item 8 -->
+          <div class="menu-item">
+            <div class="menu-item-image">
+              <img src="/default/images/3434177/Place Your Design Here (Double Click to Edit)4.png" alt="Belgian Waffles">
+            </div>
+            <div class="menu-item-content">
+              <div class="menu-item-header">
+                <h3 class="menu-item-title">Belgian Waffles</h3>
+                <div class="menu-item-price">$10.95</div>
+              </div>
+              <p class="menu-item-description">Crisp on the outside, light and fluffy on the inside, topped with fresh strawberries and whipped cream.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- White Space Divider -->
+      <div style="background-color: white; height: 70px;"></div>
+    </section>
+  </body>
+</html>

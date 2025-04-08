@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Breakfast Restaurant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        section {
+            background-color: white;
+        }
+
+        .events-section {
+            padding: 80px 40px;
+            background-color: #8AB73A;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+
+        .section-title-container {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            background: white;
+            padding: 10px 40px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #8AB73A;
+            font-size: 32px;
+            font-weight: normal;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .section-subtitle {
+            font-size: 28px;
+            margin-bottom: 60px;
+            text-transform: uppercase;
+            color: white;
+            font-weight: normal;
+        }
+        
+        .events-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            width: 340px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .event-icon {
+            font-size: 2.5rem;
+            color: #FF6B35;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .event-content {
+            padding: 30px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .event-title {
+            color: #8AB73A;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .event-description {
+            color: #FF6B35;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .event-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px;
+        }
+
+        .event-features li {
+            color: #666;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .event-features li::before {
+            content: '•';
+            color: #FF6B35;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .event-action {
+            margin-top: auto;
+        }
+
+        .event-button {
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 12px 0;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .event-button:hover {
+            background: #e85a24;
+        }
+        
+        .event-icon-decorative {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .event-icon-decorative.left {
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .event-icon-decorative.right {
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .events-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+            .event-card {
+                width: 100%;
+                max-width: 340px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<section layout:fragment="main-content">
+    <div class="events-section">
+        <div class="section-title-container">
+            <h2 class="section-title">Events</h2>
+        </div>
+        <p class="section-subtitle">SPECIAL GATHERINGS</p>
+        
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="event-icon-decorative left">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="event-icon-decorative right">
+           
+        <div class="events-grid">
+            <!-- Breakfast Workshop -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-utensils event-icon"></i>
+                    <h3 class="event-title">Breakfast Workshop</h3>
+                    <p class="event-description">Learn how to prepare delicious breakfast meals with our expert chefs in a fun and interactive environment.</p>
+                    <ul class="event-features">
+                        <li>Professional cooking techniques</li>
+                        <li>Fresh ingredients provided</li>
+                        <li>Take home recipe booklet</li>
+                        <li>3-hour interactive session</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">book now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brunch & Wine -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-glass-cheers event-icon"></i>
+                    <h3 class="event-title">Brunch & Wine</h3>
+                    <p class="event-description">Enjoy a sophisticated weekend brunch with perfectly paired wines in our elegant dining space.</p>
+                    <ul class="event-features">
+                        <li>Gourmet brunch menu</li>
+                        <li>Wine pairings with each course</li>
+                        <li>Live music performance</li>
+                        <li>Private seating available</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">book now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Family Breakfast -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-users event-icon"></i>
+                    <h3 class="event-title">Family Breakfast</h3>
+                    <p class="event-description">A special weekend event for families with kid-friendly menu options and fun activities for children.</p>
+                    <ul class="event-features">
+                        <li>Kid-friendly menu</li>
+                        <li>Interactive pancake station</li>
+                        <li>Face painting & activities</li>
+                        <li>Family photo opportunity</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">book now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Breakfast Networking -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-handshake event-icon"></i>
+                    <h3 class="event-title">Breakfast Networking</h3>
+                    <p class="event-description">Connect with professionals in your industry over a delicious breakfast in a relaxed setting.</p>
+                    <ul class="event-features">
+                        <li>Structured networking activities</li>
+                        <li>Business card exchange</li>
+                        <li>Continental breakfast buffet</li>
+                        <li>Professional moderator</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">book now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seasonal Menu Tasting -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-leaf event-icon"></i>
+                    <h3 class="event-title">Seasonal Menu Tasting</h3>
+                    <p class="event-description">Be the first to taste our new seasonal breakfast menu items with this exclusive preview event.</p>
+                    <ul class="event-features">
+                        <li>5-course tasting menu</li>
+                        <li>Meet our executive chef</li>
+                        <li>Seasonal ingredient spotlight</li>
+                        <li>Recipe cards to take home</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">book now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Private Breakfast Events -->
+            <div class="event-card">
+                <div class="event-content">
+                    <i class="fas fa-calendar-alt event-icon"></i>
+                    <h3 class="event-title">Private Events</h3>
+                    <p class="event-description">Host your special occasion or corporate meeting in our private dining space with customized menus.</p>
+                    <ul class="event-features">
+                        <li>Customizable breakfast menus</li>
+                        <li>Private dining room</li>
+                        <li>AV equipment available</li>
+                        <li>Dedicated event coordinator</li>
+                    </ul>
+                    <div class="event-action">
+                        <a href="#" class="event-button">inquire now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- White Space Divider -->
+    <div style="background-color: white; height: 70px;"></div>
+    
+</section>
+</body>
+</html>

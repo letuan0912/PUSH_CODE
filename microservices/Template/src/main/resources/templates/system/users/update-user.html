@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>User Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .error-message {
+            color: #dc3545;
+            margin-top: 0.25rem;
+            font-size: 0.875em;
+        }
+        
+        /* Tùy chỉnh biểu tượng cảnh báo */
+        .warning-icon {
+            color: #ff9800;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="main-content">
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>Cập nhật người dùng</h1>
+            <hr>
+            <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
+            <form th:action="@{/system/users/update-user}" method="post" th:object="${user}" novalidate>
+                <!-- Thêm hidden field để giữ username -->
+                <input type="hidden" th:field="*{username}">
+
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" th:value="*{username}" disabled>
+                    <small class="text-muted">Username không thể thay đổi</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <div class="position-relative">
+                        <input type="password" class="form-control" th:field="*{password}" 
+                               th:classappend="${#fields.hasErrors('password')} ? 'border-danger'"
+                               placeholder="Để trống để giữ mật khẩu hiện tại">
+                        <div class="position-absolute end-0 top-0 d-flex align-items-center h-100 pe-3" 
+                             th:if="${#fields.hasErrors('password')}">
+                            <span class="text-danger">⚠</span>
+                        </div>
+                    </div>
+                    <small class="text-muted">Để trống để giữ mật khẩu hiện tại</small>
+                    <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+                        Password phải có ít nhất 6 ký tự
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Vai trò</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="roles" value="ADMIN"
+                               th:checked="${user.roles.contains('ROLE_ADMIN') || user.roles.contains('ADMIN')}">
+                        <label class="form-check-label">Admin</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="roles" value="MANAGER"
+                               th:checked="${user.roles.contains('ROLE_MANAGER') || user.roles.contains('MANAGER')}">
+                        <label class="form-check-label">Manager</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="roles" value="USER"
+                               th:checked="${user.roles.contains('ROLE_USER') || user.roles.contains('USER')}">
+                        <label class="form-check-label">User</label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                <a th:href="@{/system/users/list-user}" class="btn btn-secondary">Hủy bỏ</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</section>
+</body>
+</html>

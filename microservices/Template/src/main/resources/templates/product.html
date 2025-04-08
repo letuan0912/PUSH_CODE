@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{default/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Products - Resto Restaurant</title>
+    <style>
+        .products-section {
+            padding: 40px 0 80px 0;
+            background-color: #f8f9fa;
+        }
+
+        .header-container {
+            max-width: 100%;
+            padding: 60px 20px 40px;
+            text-align: center;
+            background-color: #ffffff;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            color: #2d3436;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .page-description {
+            color: #636e72;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .products-container {
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: left;
+            margin: 0;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #2d3436;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .section-description {
+            color: #636e72;
+            font-size: 1.1rem;
+            text-align: left;
+            margin-left: 40px;
+            flex: 1;
+            line-height: 1.6;
+            max-width: 500px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            padding-top: 75%;
+            background-color: #fff;
+            overflow: hidden;
+        }
+
+        .product-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .no-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            color: #adb5bd;
+            font-size: 2rem;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: white;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #3b5d50;
+            display: inline-block;
+            padding: 8px 15px;
+            background: rgba(59, 93, 80, 0.1);
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .empty-products {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .empty-products i {
+            font-size: 3rem;
+            color: #adb5bd;
+            margin-bottom: 20px;
+        }
+
+        .empty-products p {
+            font-size: 1.1rem;
+            color: #636e72;
+            margin: 0;
+        }
+
+        @media (max-width: 1200px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .product-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            .section-description {
+                font-size: 1rem;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 40px 20px 30px;
+            }
+
+            .section-description {
+                margin-left: 0;
+                margin-top: 15px;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="main-content">
+    <div class="header-container">
+        <h1 class="page-title">Sản Phẩm Của Chúng Tôi</h1>
+        <p class="page-description">Khám phá bộ sưu tập sản phẩm đa dạng và chất lượng cao của chúng tôi</p>
+    </div>
+
+    <div class="products-section">
+        <div class="products-container">
+            <div th:if="${#lists.isEmpty(products)}" class="empty-products">
+                <i class="fas fa-box-open"></i>
+                <p>Hiện tại chưa có sản phẩm nào.</p>
+            </div>
+
+            <div th:unless="${#lists.isEmpty(products)}" class="product-grid">
+                <div th:each="product : ${products}" class="product-card">
+                    <a th:href="@{/detailProduct(id=${product.id})}" class="text-decoration-none">
+                        <div class="product-image-wrapper">
+                            <img th:if="${product.image != null and !product.image.isEmpty()}" 
+                                 th:src="${product.image}" 
+                                 class="product-thumbnail" 
+                                 th:alt="${product.name}">
+                            <div th:unless="${product.image != null and !product.image.isEmpty()}" 
+                                 class="no-image">
+                                <i class="fa-solid fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title" th:text="${product.name}"></h3>
+                            <div class="product-price" 
+                                 th:text="${'$' + #numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}">
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

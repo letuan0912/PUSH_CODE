@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default/layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Breakfast Restaurant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+        }
+
+        section {
+            background-color: white;
+        }
+
+        .contact-section {
+            padding: 80px 40px;
+            background-color: #8AB73A;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-align: center;
+        }
+        
+        .section-title-container {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            background: white;
+            padding: 10px 40px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #8AB73A;
+            font-size: 32px;
+            font-weight: normal;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        
+        .section-subtitle {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: white;
+            font-weight: normal;
+        }
+        
+        .contact-description {
+            max-width: 700px;
+            margin: 0 auto 60px;
+            font-size: 16px;
+            color: white;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .contact-icon-decorative {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+        }
+        
+        .contact-icon-decorative.left {
+            left: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .contact-icon-decorative.right {
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .contact-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .contact-col-left {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+        }
+        
+        .contact-col-right {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        .contact-info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .contact-form h3 {
+            color: #8AB73A;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            color: white;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .contact-text h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #8AB73A;
+            margin-bottom: 5px;
+        }
+
+        .contact-text p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .social-links {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #FF6B35;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+            background: #e85a24;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .form-group {
+            flex: 1;
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            border: 1px solid #e1e1e1;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #8AB73A;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(138, 183, 58, 0.1);
+        }
+        
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .submit-btn {
+            background: #FF6B35;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: 100%;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background: #e85a24;
+        }
+
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 200px;
+            margin-top: 30px;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (max-width: 992px) {
+            .contact-row {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-col-left, .contact-col-right {
+                width: 100%;
+                max-width: 600px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .contact-info-card,
+            .contact-form {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+<section layout:fragment="main-content">
+    <div class="contact-section">
+        <div class="section-title-container">
+            <h2 class="section-title">Contact Us</h2>
+        </div>
+        <p class="section-subtitle">GET IN TOUCH</p>
+        
+        <img src="/default/images/3434177/Vector Smart Object1 (Double Click to Edit).png" alt="Vegetable icon" class="contact-icon-decorative left">
+        <img src="/default/images/3434177/Vector Smart Object3 (Double Click to Edit).png" alt="Donut icon" class="contact-icon-decorative right">
+        
+        <p class="contact-description">Have questions about our breakfast offerings or want to make a reservation? We're here to help you. Reach out to our friendly team and we'll respond as quickly as possible.</p>
+
+        <div class="contact-content">
+            <div class="contact-row">
+                <div class="contact-col-left">
+                    <div class="contact-info-card">
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Our Location</h4>
+                                <p>799 Nguyễn Kiệm, Gò Vấp<br>Hồ Chí Minh, Việt Nam</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Call Us</h4>
+                                <p>0779518027<br>Daily: 7:00 AM - 3:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email Us</h4>
+                                <p>breakfast@restaurant.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Opening Hours</h4>
+                                <p>Monday - Sunday: 7:00 AM - 1:00 PM<br>Only mornings, as breakfast should be!</p>
+                            </div>
+                        </div>
+
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                        </div>
+
+                        <div class="map-container">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d3918.9221317995643!2d106.67857060257944!3d10.81724624422172!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1743604880236!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-col-right">
+                    <div class="contact-form">
+                        <h3>Send Us a Message</h3>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Your Name *" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control" placeholder="Your Email *" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Subject">
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Phone Number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-control">
+                                    <option value="">What are you contacting us about?</option>
+                                    <option value="reservation">Table Reservation</option>
+                                    <option value="catering">Catering Services</option>
+                                    <option value="events">Private Events</option>
+                                    <option value="feedback">Feedback & Suggestions</option>
+                                    <option value="partnership">Business Partnership</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" placeholder="Your Message *" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">send message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- White Space Divider -->
+    <div style="background-color: white; height: 70px;"></div>
+</section>
+</body>
+</html>
